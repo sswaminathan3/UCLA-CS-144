@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Posts</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<div>
+	    <% posts.forEach(function(post, err) {
+	    	if (post) {
+	    		var reader = new commonmark.Parser();
+	    		var writer = new commonmark.HtmlRenderer();
+	    		var title = writer.render(reader.parse(post.title)); 
+	    		var body = writer.render(reader.parse(post.body)); %>
+		        <div><%- title %></div>
+		        <div><%- body %></div>
+		        <div>Created: <%= new Date(post.created) %></div>
+		        <div>Modified: <%= new Date(post.modified) %></div>
+		    <% } %>
+	    <% }) %>
+	</div>
+	<% if (next) { %>
+		<a id="next" href=<%= next %>>Next Page</a>
+	<% } %>
+  </body>
+</html>
